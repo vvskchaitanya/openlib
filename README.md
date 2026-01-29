@@ -17,3 +17,7 @@ Modern JavaScript projects often suffer from:
 **OpenLib solves this by providing a structured, composable, and reusable foundation** that works across frameworks, platforms, and project sizes.
 
 ---
+
+## DX - Developer Experience
+
+**DX is how pleasant a framework is to work with — but it should never lie about what actually happens at runtime.
