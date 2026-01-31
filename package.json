@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "node scripts/test_runner.js",
-    "build": "node scripts/sync.js"
+    "test": "node scripts/test.js",
+    "build": "node scripts/build.js"
   },
   "keywords": [],
   "author": "",
