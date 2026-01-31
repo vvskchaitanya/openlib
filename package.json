@@ -1,0 +1,12 @@
+{
+  "name": "openlib",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "node scripts/test_runner.js",
+    "build": "node scripts/sync.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
