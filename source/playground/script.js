@@ -8,7 +8,7 @@ const clearConsoleBtn = document.getElementById('clear-console-btn');
 
 // Initial State
 const defaultCode = `// Example: Using Arrays.js if imported
-// Try adding "../docs/data/Arrays.js" to imports!
+// Try adding "../data/Arrays.js" to imports!
 
 const arr = [1, 2, 3, 4, 5];
 console.log("Original Array:", arr);
