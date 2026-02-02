@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenLib IDE</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+             ⚡ OpenLib Playground
+        </div>
+        <div class="header-actions">
+            <button id="run-btn" class="run-btn">
+                <span>▶ Run Script</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Left Sidebar: Imports -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                Imports
+            </div>
+            <div id="imports-list" class="imports-list">
+                <!-- Import items injected here -->
+            </div>
+            <button id="add-import-btn" class="add-import-btn">
+                + Add Import URL
+            </button>
+        </aside>
+
+        <!-- Right: Editor & Console -->
+        <main class="remote-container">
+            <div class="editor-wrapper">
+                <span class="panel-label">JS Editor</span>
+                <textarea id="code-editor" spellcheck="false" placeholder="// Write your JavaScript code here..."></textarea>
+            </div>
+
+            <div class="console-wrapper">
+                <div class="console-header">
+                    <span class="console-title">Console Output</span>
+                    <button id="clear-console-btn" class="clear-console-btn">Clear</button>
+                </div>
+                <div id="console-output">
+                    <!-- Logs appear here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+</html>

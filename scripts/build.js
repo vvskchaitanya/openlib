@@ -24,7 +24,7 @@ function copyJsFiles(src, relativePath = '') {
         if (entry.isDirectory()) {
             // Recursively process directories
             copyJsFiles(src, entryRelativePath);
-        } else if (entry.isFile() && entry.name.endsWith('.js')) {
+        } else if (entry.isFile() && (entry.name.endsWith('.js') || entry.name.endsWith('.html') || entry.name.endsWith('.css') || entry.name.endsWith('.json'))) {
             // It's a JS file, copy to both targets
             [targetDir, docsDir].forEach(destBase => {
                 const destPath = path.join(destBase, entryRelativePath);
@@ -43,10 +43,23 @@ function copyJsFiles(src, relativePath = '') {
 }
 
 console.log('Starting build...');
+
+// Copy Source JS files
 if (fs.existsSync(sourceDir)) {
     copyJsFiles(sourceDir);
-    console.log('Build complete.');
 } else {
     console.error('Source directory not found:', sourceDir);
     process.exit(1);
 }
+
+// Copy Playground
+const playgroundDir = path.join(__dirname, '../playground');
+if (fs.existsSync(playgroundDir)) {
+    [targetDir, docsDir].forEach(destBase => {
+        const destPlayground = path.join(destBase, 'playground');
+        fs.cpSync(playgroundDir, destPlayground, { recursive: true });
+        console.log(`Copied: playground -> ${destBase}`);
+    });
+}
+
+console.log('Build complete.');
