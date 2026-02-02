@@ -1,0 +1,9 @@
+{
+    "scripts": [
+        {
+            "name": "Arrays",
+            "description": "Array manipulation utilities (shift right/left)",
+            "path": "../data/Arrays.js"
+        }
+    ]
+}

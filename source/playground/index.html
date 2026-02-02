@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OpenLib IDE</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <header>
         <div class="logo">
-             ⚡ OpenLib Playground
+            ⚡ OpenLib Playground
         </div>
         <div class="header-actions">
             <button id="run-btn" class="run-btn">
@@ -27,16 +29,35 @@
             <div id="imports-list" class="imports-list">
                 <!-- Import items injected here -->
             </div>
-            <button id="add-import-btn" class="add-import-btn">
-                + Add Import URL
-            </button>
+            <div class="imports-actions">
+                <button id="add-ext-import-btn" class="add-import-btn">
+                    + External Script
+                </button>
+                <button id="add-lib-import-btn" class="add-import-btn">
+                    + OpenLib Script
+                </button>
+            </div>
         </aside>
+
+        <!-- OpenLib Script Selection Modal -->
+        <div id="lib-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Select OpenLib Script</h3>
+                    <button id="close-modal-btn" class="close-btn">×</button>
+                </div>
+                <div id="lib-list" class="lib-list">
+                    <!-- Library items injected here -->
+                </div>
+            </div>
+        </div>
 
         <!-- Right: Editor & Console -->
         <main class="remote-container">
             <div class="editor-wrapper">
                 <span class="panel-label">JS Editor</span>
-                <textarea id="code-editor" spellcheck="false" placeholder="// Write your JavaScript code here..."></textarea>
+                <textarea id="code-editor" spellcheck="false"
+                    placeholder="// Write your JavaScript code here..."></textarea>
             </div>
 
             <div class="console-wrapper">
@@ -54,4 +75,5 @@
     <!-- Script -->
     <script src="script.js"></script>
 </body>
+
 </html>

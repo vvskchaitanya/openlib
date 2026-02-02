@@ -2,13 +2,19 @@
 const codeEditor = document.getElementById('code-editor');
 const runBtn = document.getElementById('run-btn');
 const importsListEl = document.getElementById('imports-list');
-const addImportBtn = document.getElementById('add-import-btn');
+const addExtImportBtn = document.getElementById('add-ext-import-btn');
+const addLibImportBtn = document.getElementById('add-lib-import-btn');
 const consoleOutput = document.getElementById('console-output');
 const clearConsoleBtn = document.getElementById('clear-console-btn');
 
+// Modal Elements
+const libModal = document.getElementById('lib-modal');
+const closeModalBtn = document.getElementById('close-modal-btn');
+const libList = document.getElementById('lib-list');
+
 // Initial State
 const defaultCode = `// Example: Using Arrays.js if imported
-// Try adding "../data/Arrays.js" to imports!
+// Click "OpenLib Script" and select Arrays to use it!
 
 const arr = [1, 2, 3, 4, 5];
 console.log("Original Array:", arr);
@@ -19,10 +25,7 @@ console.log("Original Array:", arr);
 console.log("Hello from OpenLib IDE!");
 `;
 
-const defaultImports = [
-    // Pre-populate with local Arrays.js for convenience if hosted relative
-    // '../docs/data/Arrays.js' 
-];
+const defaultImports = [];
 
 // Load State
 codeEditor.value = localStorage.getItem('ide_code') || defaultCode;
@@ -54,8 +57,8 @@ function renderImports() {
     });
 }
 
-function addImport() {
-    imports.push('');
+function addImport(url = '') {
+    imports.push(url);
     saveState();
     renderImports();
 }
@@ -69,6 +72,61 @@ function removeImport(index) {
 function updateImport(index, value) {
     imports[index] = value;
     saveState();
+}
+
+// --- OpenLib Modal Logic ---
+function openLibModal() {
+    libModal.classList.remove('hidden');
+    fetchOpenLibScripts();
+}
+
+function closeLibModal() {
+    libModal.classList.add('hidden');
+}
+
+async function fetchOpenLibScripts() {
+    libList.innerHTML = '<div style="color: grey; padding: 10px;">Loading...</div>';
+    try {
+        const response = await fetch('openlib.json');
+        if (!response.ok) throw new Error('Failed to fetch library index');
+
+        const data = await response.json();
+        renderLibList(data.scripts);
+    } catch (e) {
+        libList.innerHTML = `<div style="color: var(--error-color); padding: 10px;">Error: ${e.message}</div>`;
+    }
+}
+
+function renderLibList(scripts) {
+    libList.innerHTML = '';
+    if (!scripts || scripts.length === 0) {
+        libList.innerHTML = '<div style="padding: 10px;">No scripts found.</div>';
+        return;
+    }
+
+    scripts.forEach(script => {
+        const item = document.createElement('div');
+        item.className = 'lib-item';
+
+        const name = document.createElement('div');
+        name.className = 'lib-name';
+        name.textContent = script.name;
+
+        const desc = document.createElement('div');
+        desc.className = 'lib-desc';
+        desc.textContent = script.description || 'No description';
+
+        item.appendChild(name);
+        item.appendChild(desc);
+
+        item.addEventListener('click', () => selectLibScript(script.path));
+        libList.appendChild(item);
+    });
+}
+
+function selectLibScript(path) {
+    addImport(path);
+    closeLibModal();
 }
 
 // --- Console Logic ---
@@ -173,7 +231,9 @@ function loadScript(src) {
     return new Promise((resolve, reject) => {
         // Check if already loaded? (Naively)
         if (document.querySelector(`script[src="${src}"]`)) {
-            // Already there
+            // Force reload if needed? Or just resolve.
+            // If user changes code in file and re-runs, browser cache might hold it.
+            // For now, assume simple case.
             resolve();
             return;
         }
@@ -193,9 +253,16 @@ function saveState() {
 
 // Event Listeners
 runBtn.addEventListener('click', runScript);
-addImportBtn.addEventListener('click', addImport);
+addExtImportBtn.addEventListener('click', () => addImport(''));
+addLibImportBtn.addEventListener('click', openLibModal);
+closeModalBtn.addEventListener('click', closeLibModal);
 clearConsoleBtn.addEventListener('click', () => consoleOutput.innerHTML = '');
 codeEditor.addEventListener('input', saveState);
+
+// Close modal on click outside
+libModal.addEventListener('click', (e) => {
+    if (e.target === libModal) closeLibModal();
+});
 
 // Init
 renderImports();
