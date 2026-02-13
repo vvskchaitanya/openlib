@@ -399,3 +399,257 @@ header {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--text-secondary);
 }
+
+/* Mobile Toggle Button */
+.mobile-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.mobile-toggle:hover {
+    color: var(--accent-color);
+}
+
+.mobile-toggle:active {
+    transform: scale(0.95);
+}
+
+/* Sidebar Overlay */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 60px);
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 45;
+    backdrop-filter: blur(2px);
+}
+
+/* Responsive Design for Tablets and Mobile */
+@media screen and (max-width: 768px) {
+
+    /* Show mobile toggle button */
+    .mobile-toggle {
+        display: block;
+    }
+
+    /* Header adjustments */
+    header {
+        padding: 0 10px;
+    }
+
+    .logo {
+        font-size: 1rem;
+        flex: 1;
+        text-align: center;
+    }
+
+    .run-btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+
+    /* Sidebar becomes slide-in overlay */
+    .sidebar {
+        position: fixed;
+        top: 60px;
+        left: -100%;
+        width: 75%;
+        max-width: 280px;
+        height: calc(100vh - 60px);
+        z-index: 50;
+        transition: left 0.3s ease-in-out;
+        box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .sidebar.open {
+        left: 0;
+    }
+
+    .sidebar-overlay.show {
+        display: block;
+    }
+
+    /* Main container takes full width */
+    .main-container {
+        flex-direction: column;
+    }
+
+    .remote-container {
+        width: 100%;
+        flex: 1;
+    }
+
+    /* Editor adjustments */
+    .editor-wrapper {
+        flex: 1.5;
+        min-height: 250px;
+    }
+
+    #code-editor {
+        font-size: 13px;
+        padding: 15px;
+        line-height: 1.6;
+    }
+
+    /* Console adjustments */
+    .console-wrapper {
+        flex: 1;
+        min-height: 180px;
+        max-height: 45%;
+    }
+
+    #console-output {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .console-header {
+        padding: 6px 12px;
+    }
+
+    .console-title {
+        font-size: 0.8rem;
+    }
+
+    /* Modal adjustments */
+    .modal-content {
+        width: 90%;
+        max-width: 90%;
+    }
+
+    .lib-list {
+        max-height: 280px;
+    }
+
+    /* Sidebar content adjustments */
+    .sidebar-header {
+        padding: 12px;
+        font-size: 0.85rem;
+    }
+
+    .imports-list {
+        padding: 8px;
+    }
+
+    .import-item {
+        margin-bottom: 8px;
+    }
+
+    .import-input {
+        font-size: 0.8rem;
+        padding: 5px 8px;
+    }
+
+    .btn-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 1.2rem;
+    }
+
+    .add-import-btn {
+        font-size: 0.8rem;
+        padding: 7px;
+        margin: 8px;
+    }
+
+    .imports-actions {
+        padding: 0 8px 8px 8px;
+    }
+}
+
+/* Extra Small Devices (Phones in portrait) */
+@media screen and (max-width: 480px) {
+    header {
+        height: 55px;
+        padding: 0 8px;
+    }
+
+    .logo {
+        font-size: 0.9rem;
+    }
+
+    .run-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+    .mobile-toggle {
+        font-size: 1.3rem;
+        padding: 5px 8px;
+    }
+
+    .sidebar {
+        width: 82%;
+        max-width: none;
+        top: 55px;
+        height: calc(100vh - 55px);
+    }
+
+    .sidebar-overlay {
+        top: 55px;
+        height: calc(100vh - 55px);
+    }
+
+    .main-container {
+        height: calc(100vh - 55px);
+    }
+
+    #code-editor {
+        font-size: 12px;
+        padding: 12px;
+    }
+
+    #console-output {
+        font-size: 11px;
+        padding: 6px;
+    }
+
+    .console-wrapper {
+        min-height: 150px;
+        max-height: 40%;
+    }
+
+    .editor-wrapper {
+        min-height: 200px;
+    }
+
+    .modal-content {
+        width: 95%;
+    }
+
+    .lib-list {
+        max-height: 220px;
+    }
+
+    .import-input {
+        font-size: 0.75rem;
+    }
+
+    .add-import-btn {
+        font-size: 0.75rem;
+        padding: 6px;
+    }
+}
+
+/* Landscape orientation adjustments */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    .editor-wrapper {
+        flex: 2;
+    }
+
+    .console-wrapper {
+        flex: 1;
+        min-height: 120px;
+        max-height: 35%;
+    }
+}

@@ -10,6 +10,9 @@
 
 <body>
     <header>
+        <button id="mobile-toggle" class="mobile-toggle" aria-label="Toggle imports">
+            ☰
+        </button>
         <div class="logo">
             ⚡ OpenLib Playground
         </div>
@@ -21,8 +24,10 @@
     </header>
 
     <div class="main-container">
+        <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
         <!-- Left Sidebar: Imports -->
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 Imports
             </div>
